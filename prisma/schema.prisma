@@ -10,8 +10,100 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model tbl_teste {
-  id Int @id @default(autoincrement())
-  email String @unique
-  name String
+model tbl_genero {
+  id   Int    @id @default(autoincrement())
+  nome String @db.VarChar(30)
+  dadosPessoaisContratante tbl_dados_pessoais_contratante[]
+
+  @@unique([id])
+}
+
+model tbl_contratante {
+  id     Int     @id @default(autoincrement())
+  email  String  @db.VarChar(255)
+  senha  String  @db.VarChar(30)
+  dadosPessoaisContratante tbl_dados_pessoais_contratante[]
+  perfil_casa              tbl_perfil_casa[]
+
+  @@unique([id])
+}
+
+model tbl_dados_pessoais_contratante {
+  id             Int     @id @default(autoincrement())
+  nome           String  @db.VarChar(50)
+  cpf            String  @db.VarChar(15) @unique
+  data_nascimento DateTime
+  biografia      String?
+  foto_perfil    String?
+  id_contratante Int
+  id_genero      Int
+  telefone       tbl_telefone_contratante[]
+
+  contratante tbl_contratante @relation(fields: [id_contratante], references: [id])
+  genero      tbl_genero      @relation(fields: [id_genero], references: [id])
+
+  @@unique([id])
+}
+
+model tbl_telefone_contratante {
+  id             Int     @id @default(autoincrement())
+  numero_telefone String @db.VarChar(50)
+  ddd             String @db.VarChar(2)
+  id_dados_pessoais_contratante Int 
+
+  contratante tbl_dados_pessoais_contratante @relation(fields: [id_dados_pessoais_contratante], references: [id])
+
+  @@unique([id])
+}
+
+model tbl_estado {
+  id             Int     @id @default(autoincrement())
+  sigla          String  @db.VarChar(2)
+  nome           String  @db.VarChar(45)
+  cidade         tbl_cidade[]
+
+  @@unique([id])
+}
+
+
+model tbl_cidade {
+    id             Int     @id @default(autoincrement())
+    nome           String  @db.VarChar(45)
+    id_estado      Int
+    endereco       tbl_endereco[]
+
+    estado         tbl_estado @relation(fields: [id_estado], references: [id])
+
+    @@unique([id])
+}
+
+model tbl_endereco {
+      id             Int      @id @default(autoincrement())
+      logradouro     String   @db.VarChar(45)
+      bairro         String   @db.VarChar(50)
+      cep            String   @db.VarChar(10)
+      numero_residencial String     @db.VarChar(10)
+      complemento     String? 
+      id_cidade       Int
+      perfil_casa     tbl_perfil_casa[]
+
+      cidade         tbl_cidade @relation(fields: [id_cidade], references: [id])
+
+      @@unique([id])
+}
+
+model tbl_perfil_casa {
+        id                 Int      @id @default(autoincrement())
+        quantidade_comodos Int
+        status_crianca     Boolean
+        status_animal      Boolean
+        tipo_propriedade   String     @db.VarChar(50)
+        informacao_adicional   String @db.Text
+        id_endereco        Int
+        id_contratante     Int
+
+        endereco           tbl_endereco @relation(fields: [id_endereco], references: [id])
+        contratante        tbl_contratante @relation(fields: [id_contratante], references: [id])
+
+        @@unique([id])
 }
