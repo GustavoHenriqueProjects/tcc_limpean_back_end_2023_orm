@@ -70,7 +70,7 @@ function validadeAddress(address) {
         !address.cep || address.cep === "" ||
         !address.district || address.district === "" ||
         !address.road || address.road === "" ||
-        !address.houseNumber || address.houseNumber === "" ||
+        typeof address.houseNumber !== "number" ||
         (address.publicPlace !== null && typeof address.publicPlace !== 'string') ||
         (address.complement !== null && typeof address.complement !== 'string')) {
         statusAddress = false;

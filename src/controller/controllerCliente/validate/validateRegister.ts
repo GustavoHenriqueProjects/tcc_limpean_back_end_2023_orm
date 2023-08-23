@@ -114,7 +114,7 @@ interface Address{
     district: string,            // Bairro
     complement: string | null,  // Complemento
     road: string,                // Rua
-    houseNumber: string          // Numero da casa
+    houseNumber: number          // Numero da casa
 }
 
 function validadeAddress(address: Address){        
@@ -128,7 +128,7 @@ function validadeAddress(address: Address){
            !address.cep          || address.cep === ""               || 
            !address.district     || address.district === ""          ||
            !address.road         || address.road === ""              ||
-           !address.houseNumber  || address.houseNumber === ""       ||
+           typeof address.houseNumber !== "number"                   ||
            (address.publicPlace !== null && typeof address.publicPlace !== 'string') ||
            (address.complement !== null && typeof address.complement !== 'string')
     ){

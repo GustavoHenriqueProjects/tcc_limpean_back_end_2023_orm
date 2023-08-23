@@ -33,8 +33,8 @@
  * 
  *  Para mudar o banco local e deixar online: npx prisma migrate dev
  * 
- * Para mudar o orin do git: git remote set-url origin git://repository.url
- * 
+ * Para mudar o orin do git: git remote set-url origin https://repository.url
+ * Para confirma : git remote -v
  * 
  */
 

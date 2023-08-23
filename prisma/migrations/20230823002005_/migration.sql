@@ -70,7 +70,7 @@ CREATE TABLE `tbl_endereco` (
     `logradouro` VARCHAR(45) NOT NULL,
     `bairro` VARCHAR(50) NOT NULL,
     `cep` VARCHAR(10) NOT NULL,
-    `numero_residencial` VARCHAR(10) NOT NULL,
+    `numero_residencial` INTEGER NOT NULL,
     `complemento` VARCHAR(191) NULL,
     `id_cidade` INTEGER NOT NULL,
 

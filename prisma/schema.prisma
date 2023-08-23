@@ -82,7 +82,7 @@ model tbl_endereco {
       logradouro     String   @db.VarChar(45)
       bairro         String   @db.VarChar(50)
       cep            String   @db.VarChar(10)
-      numero_residencial String     @db.VarChar(10)
+      numero_residencial Int     
       complemento     String? 
       id_cidade       Int
       perfil_casa     tbl_perfil_casa[]

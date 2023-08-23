@@ -29,7 +29,7 @@ interface Cliente {
             district: string,           // Bairro
             complement: string | null,  // Complemento
             road: string,               // Rua
-            houseNumber: string         // Numero da casa
+            houseNumber: number         // Numero da casa
         }
     }
 }
